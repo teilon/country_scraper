@@ -3,7 +3,7 @@ import scrapy
 
 class PopCrawlerSpider(scrapy.Spider):
     name = 'pop_crawler'
-    allowed_domains = ['www.worldometers.info']
+    allowed_domains = ['worldometers.info']
     # start_urls = ['https://www.worldometers.info/world-population/population-by-country']
 
     def start_requests(self):
@@ -32,17 +32,17 @@ class PopCrawlerSpider(scrapy.Spider):
                 'urban_pop': urban_pop,
             }
 
-            yield data
+            # yield data
 
-            # headers = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36'}
-            # yield scrapy.Request(url=link, callback=self.parse_country, headers=headers, meta={'country_name': name})
+            headers = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36'}
+            yield response.follow(url=link, callback=self.parse_country, headers=headers, meta={'country_name': name})
     
     def parse_country(self, response):
         country_name = response.meta['country_name']
 
         # breadcrumbs
-        breadcrumb = response.xpath("//ul[@class='breadcrumb")
-        breadcrumbs = [crumb.xpath(".//li/a/text()").get() for crumb in breadcrumb[3:-1]]
+        breadcrumb = response.xpath("//ul[@class='breadcrumb']/li")
+        breadcrumbs = [crumb.xpath(".//a/text()").get() for crumb in breadcrumb[3:-1]]
 
         # cities
         cities = response.xpath("//table[@class='table table-hover table-condensed table-list']/tbody/tr")
@@ -51,11 +51,11 @@ class PopCrawlerSpider(scrapy.Spider):
             population = city.xpath(".//td[3]/text()").get()
 
             data = {
+                'country_name': country_name,
+                'breadcrumbs': breadcrumbs,
+
                 'city_name': name,
                 'population': population,
             }
 
-
-
-
-
+            yield data
