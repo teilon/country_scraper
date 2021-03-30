@@ -24,6 +24,7 @@ class PopCrawlerSpider(scrapy.Spider):
             urban_pop = tr.xpath(".//td[12]/text()").get()
 
             data = {
+                'type_item': 'country',
                 'country_name': name,
                 'population': population,
                 'land_ area': land_area,
@@ -51,6 +52,8 @@ class PopCrawlerSpider(scrapy.Spider):
             population = city.xpath(".//td[3]/text()").get()
 
             data = {
+                'type_item': 'city',
+
                 'country_name': country_name,
                 'breadcrumbs': breadcrumbs,
 
