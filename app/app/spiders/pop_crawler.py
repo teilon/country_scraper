@@ -1,4 +1,5 @@
 import scrapy
+from app.items import CountryItem, CityItem
 
 
 class PopCrawlerSpider(scrapy.Spider):
@@ -23,17 +24,14 @@ class PopCrawlerSpider(scrapy.Spider):
             medium_age = tr.xpath(".//td[10]/text()").get()
             urban_pop = tr.xpath(".//td[12]/text()").get()
 
-            data = {
-                'type_item': 'country',
-                'country_name': name,
-                'population': population,
-                'land_ area': land_area,
-                'migrants': migrants,
-                'medium_age': medium_age,
-                'urban_pop': urban_pop,
-            }
-
-            # yield data
+            item = CountryItem()
+            item['name'] = name
+            item['population'] = population
+            item['land_area'] = land_area
+            item['migrants'] = migrants
+            item['medium_age'] = medium_age
+            item['urban_pop'] = urban_pop
+            yield item
 
             headers = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36'}
             yield response.follow(url=link, callback=self.parse_country, headers=headers, meta={'country_name': name})
@@ -51,14 +49,9 @@ class PopCrawlerSpider(scrapy.Spider):
             name = city.xpath(".//td[2]/text()").get()
             population = city.xpath(".//td[3]/text()").get()
 
-            data = {
-                'type_item': 'city',
-
-                'country_name': country_name,
-                'breadcrumbs': breadcrumbs,
-
-                'city_name': name,
-                'population': population,
-            }
-
-            yield data
+            item = CityItem()
+            item['country_name'] = country_name
+            # item['breadcrumbs'] = breadcrumbs
+            item['name'] = name
+            item['population'] = population
+            yield item

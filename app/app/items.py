@@ -10,3 +10,23 @@ class AppItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
     pass
+
+
+class CountryItem(scrapy.Item):
+    name = scrapy.Field()
+    population = scrapy.Field()
+    land_area = scrapy.Field()
+    migrants = scrapy.Field()
+    medium_age = scrapy.Field()
+    urban_pop = scrapy.Field()
+
+class CityItem(scrapy.Item):
+    country_name = scrapy.Field()
+    name = scrapy.Field()
+    population = scrapy.Field()
+
+class RegionItem(scrapy.Item):
+    name = scrapy.Field()
+    country_name = scrapy.Field()
+    city_name = scrapy.Field()
+    

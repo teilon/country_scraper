@@ -9,6 +9,8 @@ import sqlite3
 import logging
 from itemadapter import ItemAdapter
 
+from app.items import CountryItem, CityItem
+
 CREATE_TABLE_COUNTRIES = '''
 '''
 CREATE_TABLE_CITIES = '''
@@ -44,33 +46,47 @@ class SQLlitePipeline(object):
         self.connection.close()
 
     def process_item(self, item, spider):
-        type_item = item.get('type_item')
-        switch(type_item){
-            case 'country':
-                self.c.execute(INSERT_COUNTRY, (
-                    item.get('name'),
-                    item.get('population'),
-                    item.get('land_area'),
-                    item.get('migrants'),
-                    item.get('medium_age'),
-                    item.get('urban_pop'),
-                ))
-                self.connection.commit()
-                return item
-            case 'city':
-                self.c.execute(INSERT_CITY, (
-                    item.get('name'),
-                    item.get('population'),
-                    item.get('country_name'),
-                ))
-                self.connection.commit()
-                return item
-            case 'region':
-                self.c.execute(INSERT_REGION, (
-                    item.get('name'),
-                    item.get('country_name'),
-                    item.get('city_name'),
-                ))
-                self.connection.commit()
-                return item
-        }
+        # type_item = item.get('type_item')
+        # switch(type_item):
+        # {
+        #     case 'country':
+        #         self.c.execute(INSERT_COUNTRY, (
+        #             item.get('name'),
+        #             item.get('population'),
+        #             item.get('land_area'),
+        #             item.get('migrants'),
+        #             item.get('medium_age'),
+        #             item.get('urban_pop'),
+        #         ))
+        #         self.connection.commit()
+        #         return item
+        #     case 'city':
+        #         self.c.execute(INSERT_CITY, (
+        #             item.get('name'),
+        #             item.get('population'),
+        #             item.get('country_name'),
+        #         ))
+        #         self.connection.commit()
+        #         return item
+        #     case 'region':
+        #         self.c.execute(INSERT_REGION, (
+        #             item.get('name'),
+        #             item.get('country_name'),
+        #             item.get('city_name'),
+        #         ))
+        #         self.connection.commit()
+        #         return item
+        # }
+        pass
+
+class CountryPipline:
+    def process_item(self, item, spider):
+        if isinstance(item, CountryItem):
+            logging.info(f"************************Country {item['name']}")
+        return item
+
+class CityPipline:
+    def process_item(self, item, spider):
+        if isinstance(item, CityItem):
+            logging.info(f"************************City {item['name']}")
+        return item
