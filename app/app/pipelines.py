@@ -12,32 +12,42 @@ from scrapy.exceptions import DropItem
 
 from app.items import CountryItem, CityItem, RegionItem
 
+# create table if not exists TableName (col1 typ1, ..., colN typN)
+
 CREATE_TABLE_COUNTRIES = '''
-    CREATE TABLE Countries(
+    CREATE TABLE IF NOT EXISTS Countries(
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         name TEXT,
         population TEXT,
         land_area TEXT,
         migrants TEXT,
         medium_age TEXT,
-        urban_pop TEXT
+        urban_pop TEXT,
+        timestamp DATE DEFAULT (datetime('now','localtime'))
     );
 '''
 CREATE_TABLE_CITIES = '''
-    CREATE TABLE Cities(
+    CREATE TABLE IF NOT EXISTS Cities(
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         country_id INTEGER,
         name TEXT,
         population TEXT,
-        FOREIGN KEY (country_id) REFERENCES Countries (id)
+        timestamp DATE DEFAULT (datetime('now','localtime')),
+        FOREIGN KEY (country_id) 
+          REFERENCES Countries (id)
+            ON DELETE CASCADE 
+            ON UPDATE NO ACTION
     );
 '''
 CREATE_TABLE_REGION = '''
-    CREATE TABLE Regions(
+    CREATE TABLE IF NOT EXISTS Regions(
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         country_id INTEGER,
-        name TEXT,
-        FOREIGN KEY (country_id) REFERENCES Countries (id)
+        name TEXT UNIQUE,
+        FOREIGN KEY (country_id) 
+          REFERENCES Countries (id)
+            ON DELETE CASCADE 
+            ON UPDATE NO ACTION
     );
 '''
 INSERT_COUNTRY = '''
@@ -50,7 +60,7 @@ INSERT_CITY = '''
 '''
 INSERT_REGION = '''
     INSERT INTO Regions (country_id, name) 
-    VALUES (?, ?);
+    VALUES (?, ?) ON CONFLICT(name) DO NOTHING;
 '''
 SELECT_COUNTRY_ID = '''
     SELECT id FROM Countries WHERE name=?;
