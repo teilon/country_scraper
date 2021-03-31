@@ -65,7 +65,8 @@ ROBOTSTXT_OBEY = True
 ITEM_PIPELINES = {
    # 'app.pipelines.SQLlitePipeline': 300
    'app.pipelines.CountryPipline': 300,
-   'app.pipelines.CityPipline': 300
+   'app.pipelines.CityPipline': 300,
+   'app.pipelines.RegionPipeline': 300,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)

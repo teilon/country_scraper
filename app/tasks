@@ -1,3 +1,5 @@
 1 scrap +
 
-2 db (imdb)
+2 db (imdb) +
+
+3 check insert to db

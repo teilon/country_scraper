@@ -26,7 +26,5 @@ class CityItem(scrapy.Item):
     population = scrapy.Field()
 
 class RegionItem(scrapy.Item):
-    name = scrapy.Field()
     country_name = scrapy.Field()
-    city_name = scrapy.Field()
-    
+    name = scrapy.Field()
