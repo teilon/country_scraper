@@ -8,7 +8,10 @@
 import sqlite3
 import logging
 from itemadapter import ItemAdapter
+import scrapy
 from scrapy.exceptions import DropItem
+import requests
+import json
 
 from app.items import CountryItem, CityItem, RegionItem
 
@@ -92,6 +95,17 @@ class CountryPipline:
             ))
             self.connection.commit()
         return item
+
+class CountrySenderPipline:
+    url = 'http://{manager_host}/country/{country_name}'
+    headers = {'Content-type': 'application/json',
+               'Accept': 'text/plain',
+               'Content-Encoding': 'utf-8'}
+
+    def process_item(self, item, spider):
+        if isinstance(item, CountryItem):
+            current_url = self.url.format(manager_host='127.0.0.1:5080', country_name=item['name']) # os.environ['MANAGER_HOST']
+            response = requests.post(current_url, data=json.dumps(item.json()), headers=self.headers)
 
 class CityPipline:
 

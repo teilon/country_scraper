@@ -20,6 +20,15 @@ class CountryItem(scrapy.Item):
     medium_age = scrapy.Field()
     urban_pop = scrapy.Field()
 
+    def json(self):
+        return {
+            "population": self['population'],
+            "land_area": self['land_area'],
+            "migrants": self['migrants'],
+            "medium_age": self['medium_age'],
+            "urban_pop": self['urban_pop']
+            }
+
 class CityItem(scrapy.Item):
     country_name = scrapy.Field()
     name = scrapy.Field()
