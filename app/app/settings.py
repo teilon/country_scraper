@@ -63,11 +63,14 @@ ROBOTSTXT_OBEY = True
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-   # 'app.pipelines.SQLlitePipeline': 300
+   # sender
    'app.pipelines.CountrySenderPipline': 300,
-   # 'app.pipelines.CountryPipline': 300,
-   # 'app.pipelines.CityPipline': 300,
-   # 'app.pipelines.RegionPipeline': 300,
+   'app.pipelines.CitySenderPipline': 300,
+   'app.pipelines.RegionSenderPipline': 300,
+   # sqlite
+   # 'app.pipelines.CountrySQLitePipline': 300,
+   # 'app.pipelines.CitySQLitePipline': 300,
+   # 'app.pipelines.RegionSQLitePipeline': 300,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)

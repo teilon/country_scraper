@@ -34,6 +34,17 @@ class CityItem(scrapy.Item):
     name = scrapy.Field()
     population = scrapy.Field()
 
+    def json(self):
+        return {
+            "country_name": self['country_name'],
+            "population": self['population']
+            }
+
 class RegionItem(scrapy.Item):
     country_name = scrapy.Field()
     name = scrapy.Field()
+
+    def json(self):
+        return {
+            "country_name": self['country_name']
+            }

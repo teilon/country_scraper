@@ -49,7 +49,7 @@ class PopCrawlerSpider(scrapy.Spider):
             item = RegionItem()
             item['country_name'] = country_name
             item['name'] = crumb
-            # yield item
+            yield item
 
         # cities
         cities = response.xpath(
@@ -62,4 +62,4 @@ class PopCrawlerSpider(scrapy.Spider):
             item['country_name'] = country_name
             item['name'] = name
             item['population'] = population
-            # yield item
+            yield item
