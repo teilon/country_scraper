@@ -63,10 +63,12 @@ ROBOTSTXT_OBEY = True
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
+   # singles sender
+   # 'app.pipelines.CountrySenderPipline': 300,
+   # 'app.pipelines.CitySenderPipline': 300,
+   # 'app.pipelines.RegionSenderPipline': 300,
    # sender
-   'app.pipelines.CountrySenderPipline': 300,
-   'app.pipelines.CitySenderPipline': 300,
-   'app.pipelines.RegionSenderPipline': 300,
+   'app.pipelines.SenderPipline': 300,
    # sqlite
    # 'app.pipelines.CountrySQLitePipline': 300,
    # 'app.pipelines.CitySQLitePipline': 300,

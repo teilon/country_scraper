@@ -6,12 +6,6 @@
 import scrapy
 
 
-class AppItem(scrapy.Item):
-    # define the fields for your item here like:
-    # name = scrapy.Field()
-    pass
-
-
 class CountryItem(scrapy.Item):
     name = scrapy.Field()
     population = scrapy.Field()

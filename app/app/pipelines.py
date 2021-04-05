@@ -15,7 +15,9 @@ import json
 
 from app.items import CountryItem, CityItem, RegionItem
 
-# create table if not exists TableName (col1 typ1, ..., colN typN)
+# os.environ['MANAGER_HOST']
+MANAGER_HOST = '127.0.0.1:5080'
+
 
 CREATE_TABLE_COUNTRIES = '''
     CREATE TABLE IF NOT EXISTS Countries(
@@ -166,7 +168,7 @@ class CountrySenderPipline:
 
     def process_item(self, item, spider):
         if isinstance(item, CountryItem):
-            current_url = self.url.format(manager_host='127.0.0.1:5080', country_name=item['name']) # os.environ['MANAGER_HOST']
+            current_url = self.url.format(manager_host=MANAGER_HOST, country_name=item['name'])
             response = requests.post(current_url, data=json.dumps(item.json()), headers=self.headers)
         return item
 
@@ -178,7 +180,7 @@ class CitySenderPipline:
 
     def process_item(self, item, spider):
         if isinstance(item, CityItem):
-            current_url = self.url.format(manager_host='127.0.0.1:5080', city_name=item['name'])
+            current_url = self.url.format(manager_host=MANAGER_HOST, city_name=item['name'])
             response = requests.post(current_url, data=json.dumps(item.json()), headers=self.headers)
         return item
 
@@ -190,9 +192,24 @@ class RegionSenderPipline:
 
     def process_item(self, item, spider):
         if isinstance(item, RegionItem):
-            print('-'*15)
-            print(item.json())
-
-            current_url = self.url.format(manager_host='127.0.0.1:5080', region_name=item['name']) # os.environ['MANAGER_HOST']
+            current_url = self.url.format(manager_host=MANAGER_HOST, region_name=item['name']) # os.environ['MANAGER_HOST']
             response = requests.post(current_url, data=json.dumps(item.json()), headers=self.headers)
+        return item
+
+class SenderPipline:
+    def process_item(self, item, spider):
+        url = 'http://{manager_host}/{entity}/{name}'
+        headers = {'Content-type': 'application/json',
+                   'Accept': 'text/plain',
+                   'Content-Encoding': 'utf-8'}
+        entity = ''
+        if isinstance(item, CountryItem):
+            entity = 'country'            
+        if isinstance(item, CityItem):
+            entity = 'city'
+        if isinstance(item, RegionItem):
+            entity = 'region'
+
+        current_url = url.format(manager_host=MANAGER_HOST, entity=entity, name=item['name'])        
+        response = requests.post(current_url, data=json.dumps(item), headers=headers)
         return item
