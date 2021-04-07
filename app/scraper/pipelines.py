@@ -13,7 +13,7 @@ from scrapy.exceptions import DropItem
 import requests
 import json
 
-from app.items import CountryItem, CityItem, RegionItem
+from scraper.items import CountryItem, CityItem, RegionItem
 
 # os.environ['MANAGER_HOST']
 MANAGER_HOST = '127.0.0.1:5080'
@@ -211,5 +211,5 @@ class SenderPipline:
             entity = 'region'
 
         current_url = url.format(manager_host=MANAGER_HOST, entity=entity, name=item['name'])        
-        response = requests.post(current_url, data=json.dumps(item), headers=headers)
+        response = requests.post(current_url, data=json.dumps(item.json()), headers=headers)
         return item

@@ -7,10 +7,10 @@
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
-BOT_NAME = 'app'
+BOT_NAME = 'scraper'
 
-SPIDER_MODULES = ['app.spiders']
-NEWSPIDER_MODULE = 'app.spiders'
+SPIDER_MODULES = ['scraper.spiders']
+NEWSPIDER_MODULE = 'scraper.spiders'
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
@@ -67,12 +67,14 @@ ITEM_PIPELINES = {
    # 'app.pipelines.CountrySenderPipline': 300,
    # 'app.pipelines.CitySenderPipline': 300,
    # 'app.pipelines.RegionSenderPipline': 300,
+
    # sender
-   'app.pipelines.SenderPipline': 300,
+   # 'scraper.pipelines.SenderPipline': 300,
+
    # sqlite
-   # 'app.pipelines.CountrySQLitePipline': 300,
-   # 'app.pipelines.CitySQLitePipline': 300,
-   # 'app.pipelines.RegionSQLitePipeline': 300,
+   'scraper.pipelines.CountrySQLitePipline': 300,
+   'scraper.pipelines.CitySQLitePipline': 300,
+   'scraper.pipelines.RegionSQLitePipeline': 300,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)

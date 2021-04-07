@@ -1,5 +1,5 @@
 import scrapy
-from app.items import CountryItem, CityItem, RegionItem
+from scraper.items import CountryItem, CityItem, RegionItem
 
 
 class PopCrawlerSpider(scrapy.Spider):
