@@ -8,7 +8,6 @@ app = Flask(__name__)
 def start():
     spider_name = "pop_crawler"
 
-    # subprocess.run(["cd", "scraper"])
     subprocess.check_output(['scrapy', 'crawl', spider_name])
     return {'message': 'start crawl'}
 
