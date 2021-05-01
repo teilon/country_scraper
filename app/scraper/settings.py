@@ -69,12 +69,12 @@ ITEM_PIPELINES = {
    # 'app.pipelines.RegionSenderPipline': 300,
 
    # sender
-   'scraper.pipelines.SenderPipline': 300,
+   # 'scraper.pipelines.SenderPipline': 300,
 
    # sqlite
-   # 'scraper.pipelines.CountrySQLitePipline': 300,
-   # 'scraper.pipelines.CitySQLitePipline': 300,
-   # 'scraper.pipelines.RegionSQLitePipeline': 300,
+   'scraper.pipelines.CountrySQLitePipline': 300,
+   'scraper.pipelines.CitySQLitePipline': 300,
+   'scraper.pipelines.RegionSQLitePipeline': 300,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)

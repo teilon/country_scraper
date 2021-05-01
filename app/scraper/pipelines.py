@@ -160,42 +160,6 @@ class RegionSQLitePipeline:
             self.connection.commit()
         return item
 
-class CountrySenderPipline:
-    url = 'http://{manager_host}/country/{country_name}'
-    headers = {'Content-type': 'application/json',
-               'Accept': 'text/plain',
-               'Content-Encoding': 'utf-8'}
-
-    def process_item(self, item, spider):
-        if isinstance(item, CountryItem):
-            current_url = self.url.format(manager_host=MANAGER_HOST, country_name=item['name'])
-            response = requests.post(current_url, data=json.dumps(item.json()), headers=self.headers)
-        return item
-
-class CitySenderPipline:
-    url = 'http://{manager_host}/city/{city_name}'
-    headers = {'Content-type': 'application/json',
-               'Accept': 'text/plain',
-               'Content-Encoding': 'utf-8'}
-
-    def process_item(self, item, spider):
-        if isinstance(item, CityItem):
-            current_url = self.url.format(manager_host=MANAGER_HOST, city_name=item['name'])
-            response = requests.post(current_url, data=json.dumps(item.json()), headers=self.headers)
-        return item
-
-class RegionSenderPipline:
-    url = 'http://{manager_host}/region/{region_name}'
-    headers = {'Content-type': 'application/json',
-               'Accept': 'text/plain',
-               'Content-Encoding': 'utf-8'}
-
-    def process_item(self, item, spider):
-        if isinstance(item, RegionItem):
-            current_url = self.url.format(manager_host=MANAGER_HOST, region_name=item['name']) # os.environ['MANAGER_HOST']
-            response = requests.post(current_url, data=json.dumps(item.json()), headers=self.headers)
-        return item
-
 class SenderPipline:
     def process_item(self, item, spider):
         url = 'http://{manager_host}/{entity}/{name}'
