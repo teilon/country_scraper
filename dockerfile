@@ -15,7 +15,6 @@ RUN apk add --no-cache \
     pip install -r requirements.txt && \
     apk del gcc musl-dev
 
-# RUN pip install --no-cache-dir -r requirements.txt
-# RUN pip install -r requirements.txt
+RUN apk add --no-cache bash
 
 ENV TZ Asia/Almaty

@@ -15,8 +15,8 @@ import json
 
 from scraper.items import CountryItem, CityItem, RegionItem
 
-# os.environ['MANAGER_HOST']
-MANAGER_HOST = '127.0.0.1:5080'
+MANAGER_HOST = os.environ['MANAGER_HOST']
+# MANAGER_HOST = '127.0.0.1:5080'
 
 
 CREATE_TABLE_COUNTRIES = '''

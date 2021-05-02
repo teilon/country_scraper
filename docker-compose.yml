@@ -4,8 +4,9 @@ version: '3'
 services:
 
   manager:
-    container_name: scraper
-    build: .
+    container_name: scr
+    # build: .
+    image: scr
     ports:
       - "5081:5081"
     environment:
@@ -14,6 +15,8 @@ services:
     #   - POSTGRES_USER=torn
     #   - POSTGRES_PASSWORD=helicopter
     #   - POSTGRES_DB=exchdb
+      - MANAGER_HOST='127.0.0.1:5080'
+
       - FLASK_APP=server/server.py
       - FLASK_DEBUG=1
       - 'RUN=flask run --host=0.0.0.0 --port=5081'
