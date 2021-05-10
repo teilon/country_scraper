@@ -5,6 +5,7 @@
 
 
 # useful for handling different item types with a single interface
+import os
 import sqlite3
 import logging
 from itemadapter import ItemAdapter

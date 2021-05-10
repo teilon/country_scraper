@@ -16,5 +16,3 @@ RUN apk add --no-cache \
     apk del gcc musl-dev
 
 RUN apk add --no-cache bash
-
-ENV TZ Asia/Almaty

@@ -5,17 +5,13 @@ services:
 
   manager:
     container_name: scr
-    # build: .
+    build: .
     image: scr
     ports:
       - "5081:5081"
     environment:
-    #   - POSTGRES_HOST=db
-    #   - POSTGRES_PORT=5432
-    #   - POSTGRES_USER=torn
-    #   - POSTGRES_PASSWORD=helicopter
-    #   - POSTGRES_DB=exchdb
       - MANAGER_HOST='127.0.0.1:5080'
+      - TZ=Asia/Almaty
 
       - FLASK_APP=server/server.py
       - FLASK_DEBUG=1
